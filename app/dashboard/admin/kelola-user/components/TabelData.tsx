@@ -10,6 +10,7 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 // import HandleDelete from "./components/HandleDelete";
 
 interface UserData {
@@ -21,13 +22,21 @@ interface UserData {
 }
 
 export default function TabelData() {
+  const router = useRouter();
   const [users, setUsers] = useState<UserData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // HandleEdit
+  const handleEdit = (id_user: number) => {
+    router.push(`/dashboard/admin/kelola-user/${id_user}`);
+  };
+
   // HandleDelete
   const handleDelete = async (id_user: number) => {
-    const confirmDelete = confirm("Apakah Anda yakin ingin menghapus user ini?");
+    const confirmDelete = confirm(
+      "Apakah Anda yakin ingin menghapus user ini?",
+    );
     if (!confirmDelete) return;
 
     try {
@@ -186,7 +195,10 @@ export default function TabelData() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex justify-center items-center gap-3">
-                        <button className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all active:scale-90">
+                        <button
+                          onClick={() => handleEdit(user.id_user)}
+                          className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all active:scale-90"
+                        >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
