@@ -20,17 +20,77 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Folder Structure (Simple Explanation)
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+ ├── app/
+ │   |
+ │   │
+ │   ├── (OnBoarding)/
+ │   │   └── login/
+ │   │       └── page.tsx             # Login Form
+ │   │   └── registrasi/
+ │   │       └── page.tsx             # Registrasi Form
+ │   │
+ │   ├── api/
+ │   │   └── admin  /
+ │   │   │    └── area-parkir/
+ │   │   │    |   └── [id_area]/
+ │   │   │    |   |   └── route.ts     # API for Area Parkir
+ │   │   │    |   └── route.ts         # API for Area Parkir
+ │   │   │    │
+ │   │   │    │
+ │   │   │    └── tarif-parkir /
+ │   │   │    |   └── [id_tarif]/      # API for Tarif Parkir
+ │   │   │    |   |   └── route.ts     # API for Tarif Parkir
+ │   │   │    |   └── route.ts         # API for Area Parkir
+ │   │   │    │
+ │   │   │    │
+ │   │   │    └── user /
+ │   │   │    |   └── [id_user]/      # API for User
+ │   │   │    |   |   └── route.ts     # API for User
+ │   │   │    |   └── route.ts         # API for Area Parkir
+ │   │   │    │
+ │   │   │    │
+ │   │   └── on-boarding  /
+ │   │       └── login/
+ │   │       |   └── page.tsx         # Login Form
+ │   │       └── registrasi/
+ │   │          └── page.tsx         # Registrasi Form
+ │   │
+ │   │
+ │   │
+ ├── components/
+ │   └── Sidebar.tsx          # Sidebar Component
+ │
+ │
+ ├── lib/
+ │   └── db.ts                # Database Connection
+ │
+ │
+ │
+ └── public/
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Endpoints Role Admin
 
-## Deploy on Vercel
+| Endpoint                             | Method              | Function                                                                      |
+| ------------------------------------ | ------------------- | ----------------------------------------------------------------------------- |
+| `/api/admin/area-parkir`             | POST & GET          | Add Area Parkir & Get Area Parkir                                             |
+| `/api/admin/area-parkir/[id_area]`   | GET, DELETE & PATCH | Get Area Parkir by ID, Delete Area Parkir by ID & Update Area Parkir by ID    |
+| `/api/admin/tarif-parkir`            | POST & GET          | Add Tarif Parkir & Get Tarif Parkir                                           |
+| `/api/admin/tarif-parkir/[id_tarif]` | GET, DELETE & PATCH | Get Tarif Parkir by ID, Delete Tarif Parkir by ID & Update Tarif Parkir by ID |
+| `/api/admin/user`                    | POST & GET          | Add User & Get User                                                           |
+| `/api/admin/user/[id_user]`          | GET, DELETE & PATCH | Get User by ID, Delete User by ID & Update User by ID                         |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## API Endpoints Role On Boarding
+
+| Endpoint                      | Method | Function      |
+| ----------------------------- | ------ | ------------- |
+| `/api/on-boarding/login`      | POST   | Login user    |
+| `/api/on-boarding/registrasi` | POST   | Register user |
