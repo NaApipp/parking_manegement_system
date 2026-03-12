@@ -35,7 +35,11 @@ export default function LoginPage() {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage({ type: 'success', text: 'Login berhasil! Menghalihkan...' });
+        setMessage({ type: 'success', text: 'Login berhasil! Mengalihkan...' });
+        
+        // Simpan data user ke sessionStorage
+        sessionStorage.setItem('user', JSON.stringify(result.user));
+        
         // Redirect berdasarkan response API
         setTimeout(() => {
           router.push(result.redirectTo || '/dashboard');
