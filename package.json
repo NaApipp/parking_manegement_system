@@ -14,6 +14,7 @@
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.3.1",
+    "lucide": "^0.562.0",
     "mysql2": "^3.19.1",
     "next": "16.1.6",
     "react": "19.2.3",
