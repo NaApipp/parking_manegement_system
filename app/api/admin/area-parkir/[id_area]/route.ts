@@ -10,7 +10,7 @@ export async function GET(
     const { id_area } = await params;
 
     const [rows]: any = await db.execute(
-      "SELECT id_area, nama_area, kapasitas, terisi FROM tb_area WHERE id_area = ?",
+      "SELECT id_area, nama_area, kapasitas, terisi FROM tb_area_parkir WHERE id_area = ?",
       [ id_area]
     );
 
@@ -42,7 +42,7 @@ export async function DELETE(
     const { id_area } = await params;
 
     const [result]: any = await db.execute(
-      "DELETE FROM tb_area WHERE id_area = ?",
+      "DELETE FROM tb_area_parkir WHERE id_area = ?",
       [id_area]
     );
 
@@ -79,7 +79,7 @@ export async function PATCH(request: Request) {
     }
 
     // 2. Setup query data
-    let query = "UPDATE tb_area SET nama_area = ?, kapasitas = ?, terisi = ?";
+    let query = "UPDATE tb_area_parkir SET nama_area = ?, kapasitas = ?, terisi = ?";
     let params = [nama_area, kapasitas, terisi];
 
     query += " WHERE id_area = ?";

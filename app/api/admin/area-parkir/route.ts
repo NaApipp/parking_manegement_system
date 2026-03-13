@@ -18,8 +18,8 @@ export async function POST(request: Request) {
 
     // Simpan ke database (tb_tarif) menggunakan MySQL
     const [result] = await db.execute<ResultSetHeader>(
-      "INSERT INTO tb_area (nama_area, kapasitas, terisi) VALUES (?, ?, ?)",
-                            [nama_area, kapasitas, terisi]
+      "INSERT INTO tb_area_parkir (nama_area, kapasitas, terisi) VALUES (?, ?, ?)",
+                                  [nama_area, kapasitas, terisi]
     );
 
     return NextResponse.json(
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
 // GET
 export async function GET(request:Request) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tb_area");
+    const [rows] = await db.execute("SELECT * FROM tb_area_parkir");
     return NextResponse.json(rows);
   } catch (error) {
     console.error("Error fetching users:", error);
