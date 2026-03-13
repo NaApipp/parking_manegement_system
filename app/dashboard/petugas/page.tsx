@@ -1,7 +1,9 @@
+import FormTransaksi from "./components/FormTransaksi";
+
 export default function PetugasPage() {
     return (
         <div>
-            <h1>Petugas Page</h1>
+            <FormTransaksi />
         </div>
     );
 }
