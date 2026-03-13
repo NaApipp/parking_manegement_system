@@ -1,16 +1,19 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,10 +27,10 @@ export default function LoginPage() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/on-boarding/login', {
-        method: 'POST',
+      const response = await fetch("/api/on-boarding/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -35,20 +38,26 @@ export default function LoginPage() {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage({ type: 'success', text: 'Login berhasil! Mengalihkan...' });
-        
+        setMessage({ type: "success", text: "Login berhasil! Mengalihkan..." });
+
         // Simpan data user ke sessionStorage
-        sessionStorage.setItem('user', JSON.stringify(result.user));
-        
+        sessionStorage.setItem("user", JSON.stringify(result.user));
+
         // Redirect berdasarkan response API
         setTimeout(() => {
-          router.push(result.redirectTo || '/dashboard');
+          router.push(result.redirectTo || "/dashboard");
         }, 1000);
       } else {
-        setMessage({ type: 'error', text: result.message || 'Username atau password salah.' });
+        setMessage({
+          type: "error",
+          text: result.message || "Username atau password salah.",
+        });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Gagal menghubungi server. Silakan coba lagi.' });
+      setMessage({
+        type: "error",
+        text: "Gagal menghubungi server. Silakan coba lagi.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +65,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4 dark:bg-zinc-950">
-      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-xl dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
+      <div className="w-fit space-y-8 rounded-2xl bg-white p-8 shadow-xl dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-zinc-50">
             Login
@@ -69,9 +78,9 @@ export default function LoginPage() {
         {message && (
           <div
             className={`rounded-lg p-4 text-sm ${
-              message.type === 'success'
-                ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                : 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+              message.type === "success"
+                ? "bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                : "bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400"
             }`}
           >
             {message.text}
@@ -81,7 +90,10 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-zinc-300">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 dark:text-zinc-300"
+              >
                 Username
               </label>
               <input
@@ -96,7 +108,10 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-zinc-300">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 dark:text-zinc-300"
+              >
                 Password
               </label>
               <input
@@ -118,18 +133,49 @@ export default function LoginPage() {
               disabled={isLoading}
               className="flex w-full justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-indigo-500 hover:to-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all active:scale-95 disabled:opacity-50"
             >
-              {isLoading ? 'Memproses...' : 'Login'}
+              {isLoading ? "Memproses..." : "Login"}
             </button>
           </div>
 
-          <p className="text-center text-sm text-gray-600 dark:text-zinc-400">
-            Belum punya akun?{' '}
-            <Link href="/registrasi" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">
-              Daftar di sini
-            </Link>
-          </p>
+          <AlertDemoUser />
         </form>
       </div>
     </div>
   );
 }
+
+function AlertDemoUser() {
+  return (
+    <div className="rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 p-4">
+      <div className="flex items-start justify-between">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <svg
+              className="h-5 w-5 text-blue-600 dark:text-blue-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div className="ml-3">
+            <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">
+              User Untuk Demo dan Testing 
+            </h3>
+            <div className="mt-2 text-sm text-blue-700 dark:text-blue-400">
+              <ul role="list" className="list-disc pl-5 space-y-1">
+                <li><span className="font-bold">Username</span>: user_admin | <span className="font-bold">Password</span>: user_admin</li>
+                <li><span className="font-bold">Username</span>: user_petugas | <span className="font-bold">Password</span>: user_petugas</li>
+                <li><span className="font-bold">Username</span>: user_owner | <span className="font-bold">Password</span>: user_owner</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+} 
