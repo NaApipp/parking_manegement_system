@@ -20,6 +20,42 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+
+## Commit Convention
+
+We follow a strict commit message format to ensure a clean and searchable git history.
+
+**Format:** `type (scope/page) : Description`
+
+| Type       | Description                                           |
+| :--------- | :---------------------------------------------------- |
+| `feat`     | Adding a new feature                                  |
+| `fix`      | Fixing a bug                                          |
+| `docs`     | Documentation updates                                 |
+| `style`    | Formatting or style changes (no logic changes)        |
+| `refactor` | Code changes that neither fix a bug nor add a feature |
+| `test`     | Adding or correcting tests                            |
+| `chore`    | Task updates or configuration changes                 |
+
+**Examples:**
+
+- `feat (navbar): add dropdown menu`
+- `fix (auth): resolve login redirect issue`
+- `refactor: simplified the data fetching logic`
+
+## User For Testing and Demo
+**Role Admin:**
+- Username: user_admin
+- Password: [user_admin]
+
+**Role Petugas:**
+- Username: user_petugas
+- Password: [user_petugas]
+
+**Role Owner:**
+- Username: user_owner
+- Password: [user_owner]
+
 ## Folder Structure (Simple Explanation)
 
 ```
