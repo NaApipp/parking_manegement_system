@@ -11,6 +11,7 @@ import {
   AlertCircle,
   Loader2,
   Clock,
+  FileText,
 } from "lucide-react";
 
 interface DetailTransaksi {
@@ -34,16 +35,16 @@ export default function EditUserPage({
   const router = useRouter();
   const [id_parkir, setIdParkir] = useState<string | null>(null);
   const [formData, setFormData] = useState<DetailTransaksi>({
-  id_parkir: "",
-  id_area: "",
-  id_kendaraan: 0,
-  waktu_masuk: "",
-  waktu_keluar: "",
-  id_tarif: 0,
-  durasi_jam: 0,
-  biaya_total: 0,
-  status: "Keluar",
-  id_user: 0,
+    id_parkir: "",
+    id_area: "",
+    id_kendaraan: 0,
+    waktu_masuk: "",
+    waktu_keluar: "",
+    id_tarif: 0,
+    durasi_jam: 0,
+    biaya_total: 0,
+    status: "Keluar",
+    id_user: 0,
   });
   const [kendaraan, setKendaraan] = useState<any[]>([]);
   const [tarif, setTarif] = useState<any[]>([]);
@@ -64,7 +65,7 @@ export default function EditUserPage({
   const fetchData = async () => {
     try {
       setLoading(true);
-      
+
       const [resK, resT, resA] = await Promise.all([
         fetch("/api/petugas/kendaraan"),
         fetch("/api/petugas/tarif"),
@@ -104,7 +105,10 @@ export default function EditUserPage({
           id_user: json.data.id_user || "",
         });
       } else {
-        setMessage({ type: "error", text: json.message || "Gagal mengambil data detail" });
+        setMessage({
+          type: "error",
+          text: json.message || "Gagal mengambil data detail",
+        });
       }
     } catch (err) {
       console.error("Error fetching detail:", err);
@@ -119,7 +123,7 @@ export default function EditUserPage({
   }, [id_parkir]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -148,13 +152,19 @@ export default function EditUserPage({
 
       if (response.ok) {
         alert("Data transaksi berhasil diupdate");
-        router.push("/dashboard/petugas/kelola-transaksi");
+        router.push(`/dashboard/petugas/kelola-transaksi/${id_parkir}`);
       } else {
-        setMessage({ type: "error", text: json.message || "Gagal mengupdate data" });
+        setMessage({
+          type: "error",
+          text: json.message || "Gagal mengupdate data",
+        });
       }
     } catch (err) {
       console.error("Error updating area:", err);
-      setMessage({ type: "error", text: "Terjadi kesalahan koneksi saat update" });
+      setMessage({
+        type: "error",
+        text: "Terjadi kesalahan koneksi saat update",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -168,7 +178,7 @@ export default function EditUserPage({
     );
   }
 
-   const InputLabel = ({
+  const InputLabel = ({
     children,
     icon: Icon,
   }: {
@@ -181,12 +191,11 @@ export default function EditUserPage({
     </label>
   );
 
-const InputClass =
+  const InputClass =
     "block w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:focus:border-blue-500";
 
-
   return (
-     <div className="mx-auto max-w-2xl space-y-6 p-4">
+    <div className="mx-auto max-w-2xl space-y-6 p-4">
       <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100 dark:bg-zinc-900 dark:border-zinc-800">
         <div className="mb-6">
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -225,7 +234,6 @@ const InputClass =
                 onChange={handleChange}
                 className={InputClass}
                 required
-                
               >
                 <option value="">Pilih Plat Nomor</option>
                 {kendaraan.map((k) => (
@@ -370,6 +378,16 @@ const InputClass =
                   <Send className="h-4 w-4" /> Update Transaksi
                 </>
               )}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                window.open(`/api/petugas/transaksi/${id_parkir}/pdf`);
+              }}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-green-700 active:scale-[0.98] disabled:opacity-50"
+            >
+              <FileText className="h-4 w-4" />
+              Export PDF
             </button>
           </div>
         </form>
