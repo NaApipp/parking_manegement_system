@@ -92,7 +92,7 @@ export default function FormTransaksi() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.id_kendaraan || !form.id_tarif || !form.id_area) {
+    if (!form.id_kendaraan || !form.id_tarif || !form.status ) {
       setMessage({ type: "error", text: "Mohon lengkapi semua data" });
       return;
     }
@@ -292,7 +292,7 @@ export default function FormTransaksi() {
 
           <div className="grid gap-4 sm:grid-cols-2 text-zinc-300">
             {/* ID Petugas */}
-            <div className="space-y-1.5 hidden">
+            <div className="space-y-1.5">
               <InputLabel icon={MapPin}>ID Petugas</InputLabel>
               <input
                 name="id_user"
@@ -302,7 +302,7 @@ export default function FormTransaksi() {
               />
             </div>
             {/* Area Parkir */}
-            <div className="space-y-1.5 hidden">
+            {/* <div className="space-y-1.5">
               <InputLabel icon={MapPin}>Area Parkir</InputLabel>
               <select
                 name="id_area"
@@ -318,7 +318,7 @@ export default function FormTransaksi() {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
           </div>
 
           {/* Waktu Keluar (Optional for Entry) */}
