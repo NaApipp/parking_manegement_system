@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { NextResponse, NextRequest } from "next/server";
 import db from "@/app/lib/db";
 import { ResultSetHeader } from "mysql2";
+import { logActivity } from "@/app/lib/logActivity";
 
 export async function GET(
   req: NextRequest,
@@ -47,6 +48,9 @@ export async function DELETE(
       [id_kendaraan]
     );
 
+    // simpan log aktivitas
+  await logActivity(Number(id_kendaraan), "Telah di hapus dari database")
+
     if (result.affectedRows === 0) {
       return NextResponse.json(
         { message: "Kendaraan tidak ditemukan" },
@@ -86,6 +90,8 @@ export async function PATCH(request: Request) {
     query += " WHERE id_kendaraan = ?";
     params.push(id_kendaraan);
 
+    // simpan log aktivitas
+  await logActivity(Number(id_kendaraan), "Telah di update")
     // 3. Update ke database
     const [result] = await db.execute<ResultSetHeader>(query, params);
 

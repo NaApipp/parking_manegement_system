@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import db from "@/app/lib/db";
 import bcrypt from "bcryptjs";
 import { RowDataPacket } from "mysql2";
+import { logActivity } from "@/app/lib/logActivity";
 
 export async function POST(request: Request) {
   try {
@@ -23,6 +24,7 @@ export async function POST(request: Request) {
       "SELECT * FROM tb_user WHERE username = ?",
       [username]
     );
+
 
     if (rows.length === 0) {
       console.log("Login Debug: User tidak ditemukan untuk username:", username);
@@ -77,6 +79,9 @@ export async function POST(request: Request) {
       default:
         redirectTo = "/dashboard/user";
     }
+
+    // simpan log aktivitas
+    await logActivity(user.id_user, "Telah Login");
 
     return NextResponse.json(
       {

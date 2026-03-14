@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import db from "@/app/lib/db";
 import { ResultSetHeader } from "mysql2";   
+import { logActivity } from "@/app/lib/logActivity";
 
 // POST
 export async function POST(request: Request) {
@@ -22,6 +23,9 @@ export async function POST(request: Request) {
                                   [nama_area, kapasitas, terisi]
     );
 
+    // simpan log aktivitas
+    await logActivity(1, "Area parkir " + nama_area + " telah ditambahkan dengan kapasitas " + kapasitas);
+    
     return NextResponse.json(
       { 
         message: "Area berhasil ditambahkan",

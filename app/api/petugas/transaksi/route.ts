@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import db from "@/app/lib/db";
 import { ResultSetHeader } from "mysql2";
+import { logActivity } from "@/app/lib/logActivity";
 
 // POST
 export async function POST(request: Request) {
@@ -47,6 +48,9 @@ export async function POST(request: Request) {
         id_area || null,
       ],
     );
+
+    // simpan log aktivitas
+    await logActivity(id_user, "Telah Masuk ke sistem, pada pukul:" + waktu_masuk + "menggunakan ID Tarif: " + id_tarif + "Status: " + status + "ID Petugas: " + id_user);
 
     return NextResponse.json(
       {

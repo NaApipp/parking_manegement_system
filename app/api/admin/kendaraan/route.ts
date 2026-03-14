@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import db from "@/app/lib/db";
 import bcrypt from "bcryptjs";
 import { ResultSetHeader } from "mysql2";
+import { logActivity } from "@/app/lib/logActivity";
 
 // POST
 export async function POST(request: Request) {
@@ -23,6 +24,9 @@ export async function POST(request: Request) {
       "INSERT INTO tb_kendaraan (plat_nomor, jenis_kendaraan, warna, pemilik, id_user) VALUES (?, ?, ?, ?, ?)",
       [plat_nomor_upper, jenis_kendaraan, warna, pemilik, id_user]
     );
+
+    // simpan log aktivitas
+    await logActivity(Number(id_user), "Menambahkan kendaraan baru. Identitas Kendaraan: " + plat_nomor_upper + "Jenis Kendaraan: " + jenis_kendaraan + "Warna: " + warna + "Pemilik: " + pemilik)
 
     return NextResponse.json(
       { 

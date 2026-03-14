@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import db from "@/app/lib/db";
 import bcrypt from "bcryptjs";
 import { ResultSetHeader } from "mysql2";
+import { logActivity } from "@/app/lib/logActivity";
 
 // POST
 export async function POST(request: Request) {
@@ -27,6 +28,9 @@ export async function POST(request: Request) {
       "INSERT INTO tb_user (nama_lengkap, username, password, role, status_aktif) VALUES (?, ?, ?, ?, ?)",
       [nama_lengkap, username, hashedPassword, role, status_aktif ? 1 : 0]
     );
+
+    // simpan log aktivitas
+    await logActivity(result.insertId, "Telah Di Tambahkan dengan Role " + role + ". Status Aktif: " + status_aktif + ". Dengan ID: " + result.insertId);
 
     return NextResponse.json(
       { 

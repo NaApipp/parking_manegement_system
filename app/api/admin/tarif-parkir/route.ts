@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import db from "@/app/lib/db";
 import bcrypt from "bcryptjs";
 import { ResultSetHeader } from "mysql2";
+import { logActivity } from "@/app/lib/logActivity";
 
 // POST
 export async function POST(request: Request) {
@@ -22,6 +23,9 @@ export async function POST(request: Request) {
       "INSERT INTO tb_tarif (jenis_kendaraan, tarif_per_jam) VALUES (?, ?)",
                             [jenis_kendaraan, tarif_per_jam]
     );
+
+    // simpan log aktivitas
+    await logActivity(1, "Menambahkan tarif baru (" + jenis_kendaraan + "). Tarif per Jam: " + tarif_per_jam);
 
     return NextResponse.json(
       { 

@@ -1,25 +1,31 @@
-import puppeteer from "puppeteer"
-import db from "@/app/lib/db"
+import puppeteer from "puppeteer";
+import db from "@/app/lib/db";
 
-export async function GET(req: Request, { params }: { params: Promise<{ id_parkir: string }> }) {
-
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<{ id_parkir: string }> },
+) {
   const { id_parkir } = await params;
 
   // ambil detail transaksi
   const [detail]: any = await db.execute(
     "SELECT * FROM tb_transaksi WHERE id_parkir = ?",
-    [id_parkir]
-  )
+    [id_parkir],
+  );
+
 
   if (!detail || detail.length === 0) {
-    return new Response("Data transaksi tidak ditemukan", { status: 404 })
+    return new Response("Data transaksi tidak ditemukan", { status: 404 });
   }
 
-  const trx = detail[0]
+  const trx = detail[0];
 
   const formatRupiah = (angka: number) => {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(angka);
-  }
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(angka);
+  };
 
   const html = `
     <html>
@@ -95,24 +101,24 @@ export async function GET(req: Request, { params }: { params: Promise<{ id_parki
         </div>
       </body>
     </html>
-  `
+  `;
 
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-  await page.setContent(html)
+  await page.setContent(html);
 
   const pdf = await page.pdf({
     format: "A4",
-    printBackground: true
-  })
+    printBackground: true,
+  });
 
-  await browser.close()
+  await browser.close();
 
   return new Response(Buffer.from(pdf), {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename=transaksi-${id_parkir}.pdf`
-    }
-  })
+      "Content-Disposition": `attachment; filename=transaksi-${id_parkir}.pdf`,
+    },
+  });
 }
