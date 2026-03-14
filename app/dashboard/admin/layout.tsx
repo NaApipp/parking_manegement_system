@@ -95,7 +95,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </li>
         <li>
           <Link
-            href="/dashboard/admin/kelola-user"
+            href="/dashboard/admin/log-aktivitas"
             className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200"
           >
             Log Aktivitas
