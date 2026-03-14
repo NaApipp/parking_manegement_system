@@ -98,11 +98,13 @@ src/
  │   │
  │   │
  ├── components/
- │   └── Sidebar.tsx          # Sidebar Component
+ │   ├── Sidebar.tsx          # Sidebar Component
+ │   ├── ButtonCopy.tsx       # Button Copy Component
+ │   └── ButtonLogout.tsx     # Button Logout Component
  │
  │
  ├── lib/
- │   └── db.ts                # Database Connection
+ │   ├── db.ts                # Database Connection
  │
  │
  │
@@ -130,7 +132,8 @@ src/
 | `/api/petugas/kendaraan`                | GET         | GET Overall data Kendaraan                    |
 | `/api/petugas/tarif`                    | GET         | GET Overall data Tarif                        |
 | `/api/petugas/transaksi`                | GET & POST  | GET Overall data Transaksi & Add Transaksi    |
-| `/api/petugas/transaksi/[id_transaksi]` | GET & PATCH | GET Detail Transaksi & Update Transaksi by ID |
+| `/api/petugas/transaksi/[id_parkir]`    | GET & PATCH | GET Detail Transaksi & Update Transaksi by ID |
+| `/api/petugas/transaksi/[id_parkir]/pdf`| GET         | GET Detail Transaksi for export to PDF |
 
 ## API Endpoints On Boarding
 
