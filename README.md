@@ -86,9 +86,17 @@ src/
 | `/api/admin/user`                    | POST & GET          | Add User & Get User                                                           |
 | `/api/admin/user/[id_user]`          | GET, DELETE & PATCH | Get User by ID, Delete User by ID & Update User by ID                         |
 
+## API Endpoints Role Petugas
 
+| Endpoint                                | Method      | Function                                      |
+| --------------------------------------- | ----------- | --------------------------------------------- |
+| `/api/petugas/area`                     | GET         | GET Overall data Area                         |
+| `/api/petugas/kendaraan`                | GET         | GET Overall data Kendaraan                    |
+| `/api/petugas/tarif`                    | GET         | GET Overall data Tarif                        |
+| `/api/petugas/transaksi`                | GET & POST  | GET Overall data Transaksi & Add Transaksi    |
+| `/api/petugas/transaksi/[id_transaksi]` | GET & PATCH | GET Detail Transaksi & Update Transaksi by ID |
 
-## API Endpoints Role On Boarding
+## API Endpoints On Boarding
 
 | Endpoint                      | Method | Function      |
 | ----------------------------- | ------ | ------------- |
