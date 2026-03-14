@@ -1,17 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  User,
-  Shield,
-  UserCircle,
-  Edit,
-  Trash2,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+import { Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
-// import HandleDelete from "./components/HandleDelete";
 
 interface TransaksiData {
   id_parkir: number;
@@ -34,6 +25,7 @@ export default function KelolaTransaksiPage() {
   const [transactions, setTransactions] = useState<TransaksiData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // HandleEdit
   const handleEdit = (id_parkir: number) => {
@@ -74,13 +66,72 @@ export default function KelolaTransaksiPage() {
     );
   }
 
+  const filteredTransactions = transactions.filter((item) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      item.id_parkir?.toString().toLowerCase().includes(query) 
+      // item.id_kendaraan?.toString().toLowerCase().includes(query) ||
+      // item.status?.toLowerCase().includes(query) ||
+      // item.id_user?.toString().toLowerCase().includes(query)
+    );
+  });
+
   return (
-    <div className="w-full space-y-6">
-      <div className="flex justify-center flex-col items-center gap-2">
+    <div className="w-full space-y-6 mt-9">
+      <div className="flex flex-row items-center justify-between m-4">
         <h1 className="font-bold text-3xl text-gray-800 dark:text-white">
           Data Transaksi Parkir
         </h1>
-        <div className="h-1.5 w-24 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full shadow-sm"></div>
+        <form className="form relative" onSubmit={(e) => e.preventDefault()}>
+          <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1">
+            <svg
+              width="17"
+              height="16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="search"
+              className="w-5 h-5 text-gray-700"
+            >
+              <path
+                d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                stroke="currentColor"
+                stroke-width="1.333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </button>
+          <input
+            className="input rounded-full px-8 py-3 border-2 border-gray-200 focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-md"
+            placeholder="Cari ID Parkir Yang Tersedia..."
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              className="absolute right-3 -translate-y-1/2 top-1/2 p-1"
+              onClick={() => setSearchQuery("")}
+            >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5 text-gray-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+            </button>
+          )}
+        </form>
+
       </div>
 
       <div className="overflow-hidden m-3 rounded-2xl border border-gray-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl">
@@ -109,17 +160,17 @@ export default function KelolaTransaksiPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-zinc-800">
-              {transactions.length === 0 ? (
+              {filteredTransactions.length === 0 ? (
                 <tr>
                   <td
                     colSpan={7}
                     className="px-6 py-10 text-center text-gray-500 dark:text-zinc-400"
                   >
-                    Tidak ada data transaksi tersedia.
+                    Tidak ada data transaksi ditemukan.
                   </td>
                 </tr>
               ) : (
-                transactions.map((item) => (
+                filteredTransactions.map((item) => (
                   <tr
                     key={item.id_parkir}
                     className="hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors group"
@@ -128,21 +179,23 @@ export default function KelolaTransaksiPage() {
                       {item.id_parkir}
                     </td>
                     <td className="px-6 py-4 text-sm font-semibold text-gray-900 dark:text-zinc-100">
-                      {item.id_kendaraan}
+                      {item.plat_nomor || item.id_kendaraan}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-400">
                       {new Date(item.waktu_masuk).toLocaleDateString()}
                     </td>
-                   
+
                     <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-400">
                       {item.id_user}
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`px-2 py-1 rounded-full text-xs font-bold ${
-                        item.status === "Masuk" 
-                        ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" 
-                        : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                      }`}>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${
+                          item.status === "masuk"
+                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                            : "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400"
+                        }`}
+                      >
                         {item.status}
                       </span>
                     </td>
