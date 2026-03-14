@@ -13,6 +13,8 @@ interface UserData {
   id_user: number;
   aktivitas: string;
   waktu_aktivitas: string;
+  username?: string;
+  nama_lengkap?: string;
 }
 
 export default function TabelData() {
@@ -75,7 +77,7 @@ export default function TabelData() {
                   Id Log
                 </th>
                 <th className="px-6 py-4 text-sm font-semibold text-gray-700 dark:text-zinc-300">
-                  ID User
+                  User / Petugas
                 </th>
                 <th className="px-6 py-4 text-sm font-semibold text-gray-700 dark:text-zinc-300">
                   Aktivitas
@@ -104,10 +106,17 @@ export default function TabelData() {
                     <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-400 font-medium">
                       {user.id_log}
                     </td>
-                    <td className="px-6 py-4 text-sm font-semibold text-gray-900 dark:text-zinc-100">
-                      {user.id_user}
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col">
+                        <span className="text-sm font-bold text-gray-900 dark:text-white">
+                          {user.nama_lengkap || user.username || 'System'}
+                        </span>
+                        <span className="text-[10px] text-gray-400 uppercase font-bold">
+                          ID: {user.id_user}
+                        </span>
+                      </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-400 whitespace-normal break-words max-w-md">
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-400 whitespace-normal wrap-break-word max-w-md">
                       {user.aktivitas}
                     </td>
                     <td className="px-6 py-4">

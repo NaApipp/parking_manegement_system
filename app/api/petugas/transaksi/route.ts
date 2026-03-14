@@ -79,7 +79,12 @@ export async function POST(request: Request) {
 // GET
 export async function GET(request: Request) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tb_transaksi");
+    const [rows] = await db.execute(`
+      SELECT tb_transaksi.*, tb_kendaraan.plat_nomor 
+      FROM tb_transaksi 
+      LEFT JOIN tb_kendaraan ON tb_transaksi.id_kendaraan = tb_kendaraan.id_kendaraan
+      ORDER BY tb_transaksi.id_parkir ASC
+    `);
     return NextResponse.json(rows);
   } catch (error) {
     console.error("Error fetching users:", error);
