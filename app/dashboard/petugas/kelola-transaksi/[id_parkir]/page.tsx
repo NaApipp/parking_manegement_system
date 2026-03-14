@@ -122,6 +122,40 @@ export default function EditUserPage({
     if (id_parkir) fetchData();
   }, [id_parkir]);
 
+  // Logic Hitung Durasi Otomatis
+  useEffect(() => {
+    if (formData.waktu_masuk && formData.waktu_keluar) {
+      const masuk = new Date(formData.waktu_masuk);
+      const keluar = new Date(formData.waktu_keluar);
+
+      if (!isNaN(masuk.getTime()) && !isNaN(keluar.getTime())) {
+        const diffMs = keluar.getTime() - masuk.getTime();
+        const diffHours = Math.ceil(diffMs / (1000 * 60 * 60)); // Bulatkan ke atas (umum untuk parkir)
+
+        if (diffHours >= 0 && diffHours !== formData.durasi_jam) {
+          setFormData((prev) => ({ ...prev, durasi_jam: diffHours }));
+        }
+      }
+    }
+  }, [formData.waktu_masuk, formData.waktu_keluar]);
+
+  // Logic Hitung Biaya Total
+  useEffect(() => {
+    const selectedTarif = tarif.find(
+      (t) => Number(t.id_tarif) === Number(formData.id_tarif),
+    );
+    if (selectedTarif) {
+      const tarifPerJam = Number(selectedTarif.tarif_per_jam);
+      const durasi = Number(formData.durasi_jam);
+      if (!isNaN(tarifPerJam) && !isNaN(durasi)) {
+        setFormData((prev) => ({
+          ...prev,
+          biaya_total: tarifPerJam * durasi,
+        }));
+      }
+    }
+  }, [formData.id_tarif, formData.durasi_jam, tarif]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -324,7 +358,7 @@ export default function EditUserPage({
 
           <div className="grid gap-4 sm:grid-cols-2 text-zinc-300">
             {/* ID Petugas */}
-            <div className="space-y-1.5 hidden">
+            <div className="space-y-1.5">
               <InputLabel icon={MapPin}>ID Petugas</InputLabel>
               <input
                 name="id_user"
@@ -334,7 +368,7 @@ export default function EditUserPage({
               />
             </div>
             {/* Area Parkir */}
-            <div className="space-y-1.5 hidden">
+            <div className="space-y-1.5">
               <InputLabel icon={MapPin}>Area Parkir</InputLabel>
               <select
                 name="id_area"
