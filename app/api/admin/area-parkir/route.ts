@@ -23,8 +23,13 @@ export async function POST(request: Request) {
                                   [nama_area, kapasitas, terisi]
     );
 
-    // simpan log aktivitas
-    await logActivity(1, "Area parkir " + nama_area + " telah ditambahkan dengan kapasitas " + kapasitas);
+    const actorId = request.headers.get("X-User-ID");
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Menambahkan Area parkir [${nama_area}] dengan kapasitas ${kapasitas}`
+    );
     
     return NextResponse.json(
       { 

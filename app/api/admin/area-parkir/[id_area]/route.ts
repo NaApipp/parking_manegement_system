@@ -41,28 +41,46 @@ export async function DELETE(
 ) {
   try {
     const { id_area } = await params;
+    const actorId = req.headers.get("X-User-ID");
 
-    const [result]: any = await db.execute(
-      "DELETE FROM tb_area_parkir WHERE id_area = ?",
+    const [rows]: any = await db.execute(
+      "SELECT nama_area FROM tb_area_parkir WHERE id_area = ?",
       [id_area]
     );
 
-    // simpan log aktivitas
-  await logActivity(Number(id_area), "Telah di hapus dari database")
-
-    if (result.affectedRows === 0) {
+    if (rows.length === 0) {
       return NextResponse.json(
         { message: "Area tidak ditemukan" },
         { status: 404 }
       );
     }
 
+    const namaArea = rows[0].nama_area;
+
+    // 1. "Orphan" records di tb_transaksi agar tidak menghalangi DELETE
+    await db.execute(
+      "UPDATE tb_transaksi SET id_area = NULL WHERE id_area = ?",
+      [id_area]
+    );
+
+    const [result]: any = await db.execute(
+      "DELETE FROM tb_area_parkir WHERE id_area = ?",
+      [id_area]
+    );
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Menghapus Area [${namaArea}] (ID: ${id_area})`
+    );
+
     return NextResponse.json({
       message: "Area berhasil dihapus",
     });
-  } catch (error) {
+  } catch (error: any) {
+    console.error("Delete Area Error:", error);
     return NextResponse.json(
-      { message: "Error deleting area", error },
+      { message: "Error deleting area", error: error.message || error },
       { status: 500 }
     );
   }
@@ -89,8 +107,13 @@ export async function PATCH(request: Request) {
     query += " WHERE id_area = ?";
     params.push(id_area);
 
-    // simpan log aktivitas
-    await logActivity(nama_area, "Telah di update dengan kapasitas" + kapasitas)
+    const actorId = request.headers.get("X-User-ID");
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Mengupdate Area [${nama_area}] (ID: ${id_area}). Kapasitas baru: ${kapasitas}`
+    );
 
     // 3. Update ke database
     const [result] = await db.execute<ResultSetHeader>(query, params);

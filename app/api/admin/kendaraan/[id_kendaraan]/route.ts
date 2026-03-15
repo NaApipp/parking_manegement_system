@@ -42,28 +42,46 @@ export async function DELETE(
 ) {
   try {
     const { id_kendaraan } = await params;
+    const actorId = req.headers.get("X-User-ID");
 
-    const [result]: any = await db.execute(
-      "DELETE FROM tb_kendaraan WHERE id_kendaraan = ?",
+    const [rows]: any = await db.execute(
+      "SELECT plat_nomor FROM tb_kendaraan WHERE id_kendaraan = ?",
       [id_kendaraan]
     );
 
-    // simpan log aktivitas
-  await logActivity(Number(id_kendaraan), "Telah di hapus dari database")
-
-    if (result.affectedRows === 0) {
+    if (rows.length === 0) {
       return NextResponse.json(
         { message: "Kendaraan tidak ditemukan" },
         { status: 404 }
       );
     }
 
+    const platNomor = rows[0].plat_nomor;
+
+    // 1. "Orphan" records di tb_transaksi agar tidak menghalangi DELETE
+    await db.execute(
+      "UPDATE tb_transaksi SET id_kendaraan = NULL WHERE id_kendaraan = ?",
+      [id_kendaraan]
+    );
+
+    const [result]: any = await db.execute(
+      "DELETE FROM tb_kendaraan WHERE id_kendaraan = ?",
+      [id_kendaraan]
+    );
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Menghapus Kendaraan [${platNomor}] (ID: ${id_kendaraan})`
+    );
+
     return NextResponse.json({
-      message: "Tarif berhasil dihapus",
+      message: "Kendaraan berhasil dihapus",
     });
-  } catch (error) {
+  } catch (error: any) {
+    console.error("Delete Kendaraan Error:", error);
     return NextResponse.json(
-      { message: "Error deleting tarif", error },
+      { message: "Error deleting kendaraan", error: error.message || error },
       { status: 500 }
     );
   }
@@ -90,8 +108,13 @@ export async function PATCH(request: Request) {
     query += " WHERE id_kendaraan = ?";
     params.push(id_kendaraan);
 
-    // simpan log aktivitas
-  await logActivity(Number(id_kendaraan), "Telah di update")
+    const actorId = request.headers.get("X-User-ID");
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Mengupdate Kendaraan [${plat_nomor}] (ID: ${id_kendaraan}).`
+    );
     // 3. Update ke database
     const [result] = await db.execute<ResultSetHeader>(query, params);
 

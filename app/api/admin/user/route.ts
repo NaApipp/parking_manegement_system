@@ -29,8 +29,13 @@ export async function POST(request: Request) {
       [nama_lengkap, username, hashedPassword, role, status_aktif ? 1 : 0]
     );
 
-    // simpan log aktivitas
-    await logActivity(result.insertId, "Telah Di Tambahkan dengan Role " + role + ". Status Aktif: " + status_aktif + ". Dengan ID: " + result.insertId);
+    const actorId = request.headers.get("X-User-ID");
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Menambahkan user baru [${nama_lengkap}] dengan Role ${role}. ID baru: ${result.insertId}`
+    );
 
     return NextResponse.json(
       { 

@@ -56,6 +56,7 @@ export default function AddKendaraanPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-User-ID": user?.id?.toString() || "",
         },
         body: JSON.stringify(formData),
       });

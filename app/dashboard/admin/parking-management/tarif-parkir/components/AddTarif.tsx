@@ -25,11 +25,24 @@ export default function AddTarifPage() {
     setIsLoading(true);
     setMessage(null);
 
+    // Get logged in user from session
+    let actorId = "";
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        actorId = parsed.id?.toString() || "";
+      } catch (e) {
+        console.error("Failed to parse user data", e);
+      }
+    }
+
     try {
       const response = await fetch("/api/admin/tarif-parkir", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-User-ID": actorId,
         },
         body: JSON.stringify(formData),
       });

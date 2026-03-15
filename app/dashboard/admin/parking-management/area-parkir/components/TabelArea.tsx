@@ -29,10 +29,25 @@ export default function TabelArea() {
       "Apakah Anda yakin ingin menghapus Area ini?",
     );
     if (!confirmDelete) return;
+
+    // Get logged in user from session
+    let actorId = "";
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        actorId = parsed.id?.toString() || "";
+      } catch (e) {
+        console.error("Failed to parse user data", e);
+      }
+    }
     
     try {
       const response = await fetch(`/api/admin/area-parkir/${id_area}`, {
         method: "DELETE",
+        headers: {
+          "X-User-ID": actorId,
+        },
       });
 
       const data = await response.json();
@@ -45,9 +60,9 @@ export default function TabelArea() {
 
       // refresh data / reload list
       fetchArea();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Gagal menghapus Area");
+      alert(error.message || "Gagal menghapus Area");
     }
   };
 

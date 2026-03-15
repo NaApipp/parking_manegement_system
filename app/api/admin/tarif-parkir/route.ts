@@ -24,8 +24,13 @@ export async function POST(request: Request) {
                             [jenis_kendaraan, tarif_per_jam]
     );
 
-    // simpan log aktivitas
-    await logActivity(1, "Menambahkan tarif baru (" + jenis_kendaraan + "). Tarif per Jam: " + tarif_per_jam);
+    const actorId = request.headers.get("X-User-ID");
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Menambahkan tarif baru [${jenis_kendaraan}]. Tarif per Jam: ${tarif_per_jam}`
+    );
 
     return NextResponse.json(
       { 

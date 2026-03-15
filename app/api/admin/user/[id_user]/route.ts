@@ -42,28 +42,67 @@ export async function DELETE(
 ) {
   try {
     const { id_user } = await params;
+    const actorId = req.headers.get("X-User-ID");
 
-    const [result]: any = await db.execute(
-      "DELETE FROM tb_user WHERE id_user = ?",
+    // 1. Cegah hapus diri sendiri jika actorId sama dengan id_user yang akan dihapus
+    if (actorId && actorId === id_user) {
+      return NextResponse.json(
+        { message: "Anda tidak dapat menghapus akun Anda sendiri yang sedang digunakan." },
+        { status: 400 }
+      );
+    }
+
+    // 2. Ambil info user sebelum dihapus (untuk log Nama)
+    const [userRows]: any = await db.execute(
+      "SELECT nama_lengkap FROM tb_user WHERE id_user = ?",
       [id_user]
     );
 
-    // simpan log aktivitas
-    await logActivity(Number(id_user), "Telah di hapus dari database")
-
-    if (result.affectedRows === 0) {
+    if (userRows.length === 0) {
       return NextResponse.json(
         { message: "User tidak ditemukan" },
         { status: 404 }
       );
     }
 
+    const userName = userRows[0].nama_lengkap;
+
+    // 3. "Orphan" records di tabel lain agar tidak menghalangi DELETE
+    await db.execute(
+      "UPDATE tb_log_aktivitas SET id_user = NULL WHERE id_user = ?",
+      [id_user]
+    );
+
+    await db.execute(
+      "UPDATE tb_kendaraan SET id_user = NULL WHERE id_user = ?",
+      [id_user]
+    );
+
+    await db.execute(
+      "UPDATE tb_transaksi SET id_user = NULL WHERE id_user = ?",
+      [id_user]
+    );
+
+    // 4. Simpan log aktivitas penghapusan dengan ID Aktor yang login
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Menghapus User [${userName}] (ID: ${id_user}) dari database`
+    );
+
+    // 5. Eksekusi penghapusan user
+    await db.execute(
+      "DELETE FROM tb_user WHERE id_user = ?",
+      [id_user]
+    );
+
     return NextResponse.json({
-      message: "User berhasil dihapus",
+      message: "User berhasil dihapus, log aktivitas telah dicatat.",
     });
-  } catch (error) {
+  } catch (error: any) {
+    console.error("Delete User Error:", error);
+
     return NextResponse.json(
-      { message: "Error deleting user", error },
+      { message: "Error deleting user", error: error.message || error },
       { status: 500 }
     );
   }
@@ -89,8 +128,13 @@ export async function PATCH(request: Request) {
     let query = "UPDATE tb_user SET nama_lengkap = ?, username = ?, role = ?, status_aktif = ?";
     let params = [nama_lengkap, username, role, status_val];
 
-    // simpan log aktivitas
-    await logActivity(Number(id_user), "Telah di update. Nama: " + nama_lengkap + "Username: " + username + "Role: " + role + "Status Aktif: " + status_val)
+    const actorId = request.headers.get("X-User-ID");
+
+    // simpan log aktivitas dengan ID Aktor
+    await logActivity(
+      actorId ? Number(actorId) : null, 
+      `Mengupdate user [${nama_lengkap}] (ID: ${id_user}). Status Aktif: ${status_val}`
+    );
 
     // 3. Hash password jika disediakan
     if (password && password.trim() !== "") {

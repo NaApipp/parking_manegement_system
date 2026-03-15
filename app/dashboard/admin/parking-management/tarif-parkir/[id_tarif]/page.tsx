@@ -74,10 +74,23 @@ export default function EditUserPage({
       setUpdating(true);
       setError(null);
 
+      // Get logged in user from session
+      let actorId = "";
+      const userData = sessionStorage.getItem("user");
+      if (userData) {
+        try {
+          const parsed = JSON.parse(userData);
+          actorId = parsed.id?.toString() || "";
+        } catch (e) {
+          console.error("Failed to parse user data", e);
+        }
+      }
+
       const response = await fetch(`/api/admin/tarif-parkir/${id_tarif}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          "X-User-ID": actorId,
         },
         body: JSON.stringify({
           ...formData,

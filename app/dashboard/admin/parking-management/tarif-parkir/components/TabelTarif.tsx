@@ -28,10 +28,25 @@ export default function TabelTarif() {
       "Apakah Anda yakin ingin menghapus tarif ini?",
     );
     if (!confirmDelete) return;
+
+    // Get logged in user from session
+    let actorId = "";
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        actorId = parsed.id?.toString() || "";
+      } catch (e) {
+        console.error("Failed to parse user data", e);
+      }
+    }
     
     try {
       const response = await fetch(`/api/admin/tarif-parkir/${id_tarif}`, {
         method: "DELETE",
+        headers: {
+          "X-User-ID": actorId,
+        },
       });
 
       const data = await response.json();
@@ -44,9 +59,9 @@ export default function TabelTarif() {
 
       // refresh data / reload list
       fetchTarif();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Gagal menghapus tarif");
+      alert(error.message || "Gagal menghapus tarif");
     }
   };
 
