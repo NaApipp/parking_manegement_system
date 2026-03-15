@@ -66,7 +66,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col justify-center min-h-screen">
-      <div className="flex items-center justify-center bg-gray-50 p-4 dark:bg-zinc-950">
+      <div className="flex items-center justify-center bg-zinc-950">
         <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-xl dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-zinc-50">
@@ -143,7 +143,7 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-4">
         <AlertDemoUser />
       </div>
     </div>
@@ -152,7 +152,7 @@ export default function LoginPage() {
 
 function AlertDemoUser() {
   return (
-    <div className="rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 p-4 w-fit">
+    <div className="rounded-lg border border-blue-800  bg-blue-100 p-4 w-fit">
       <div className="flex items-start justify-between">
         <div className="flex">
           <div className="flex-shrink-0">
