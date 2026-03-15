@@ -152,66 +152,85 @@ export default function LoginPage() {
 
 function AlertDemoUser() {
   return (
-    <div className="rounded-lg border border-blue-800  bg-blue-100 p-4 w-fit">
-      <div className="flex items-start justify-between">
-        <div className="flex">
-          <div className="flex-shrink-0">
-            <svg
-              className="h-5 w-5 text-blue-600 dark:text-blue-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          <div className="ml-3">
-            <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">
-              Account Untuk Demo dan Testing
-            </h3>
-            <div className="mt-2 text-sm text-blue-700 dark:text-blue-400">
-              <div className="border p-3 grid grid-cols-1 sm:grid-cols-3 gap-4 rounded-md">
-                <div>
-                  <h3 className="text-sm font-bold text-center text-blue-800 dark:text-blue-300">
-                    User Admin
-                  </h3>
-                  <p className="flex gap-3 justify-center items-center">
-                    <span className="font-bold">Username:</span>user_admin
-                    <ButtonCopy text="user_admin" />
-                  </p>
-                  <p className="flex gap-3 justify-center items-center">
-                    <span className="font-bold">Password:</span>user_admin
-                    <ButtonCopy text="user_admin" />
-                  </p>
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 backdrop-blur-sm w-full max-w-2xl shadow-xl">
+      <div className="flex items-start">
+        <div className="flex-shrink-0">
+          <svg
+            className="h-5 w-5 text-blue-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        <div className="ml-3 w-full">
+          <h3 className="text-sm font-bold text-zinc-100">
+            Account Untuk Demo dan Testing
+          </h3>
+          <div className="mt-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Admin */}
+              <div className="bg-zinc-950/40 p-3 rounded-xl border border-zinc-800/50">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-[#EAEFD3] mb-2 text-center">
+                  User Admin
+                </h4>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-500">User:</span>
+                    <div className="flex items-center gap-1 text-zinc-300">
+                      user_admin <ButtonCopy text="user_admin" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-500">Pass:</span>
+                    <div className="flex items-center gap-1 text-zinc-300">
+                      user_admin <ButtonCopy text="user_admin" />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-bold text-center text-blue-800 dark:text-blue-300">
-                    User Petugas
-                  </h3>
-                  <p className="flex gap-3 justify-center items-center">
-                    <span className="font-bold">Username:</span>user_petugas
-                    <ButtonCopy text="user_petugas" />
-                  </p>
-                  <p className="flex gap-3 justify-center items-center">
-                    <span className="font-bold">Password:</span>user_petugas
-                    <ButtonCopy text="user_petugas" />
-                  </p>
+              </div>
+              {/* Petugas */}
+              <div className="bg-zinc-950/40 p-3 rounded-xl border border-zinc-800/50">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-2 text-center">
+                  User Petugas
+                </h4>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-500">User:</span>
+                    <div className="flex items-center gap-1 text-zinc-300">
+                      user_petugas <ButtonCopy text="user_petugas" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-500">Pass:</span>
+                    <div className="flex items-center gap-1 text-zinc-300">
+                      user_petugas <ButtonCopy text="user_petugas" />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-bold text-center text-blue-800 dark:text-blue-300">
-                    User Owner
-                  </h3>
-                  <p className="flex gap-3 justify-center items-center">
-                    <span className="font-bold">Username:</span>user_owner
-                    <ButtonCopy text="user_owner" />
-                  </p>
-                  <p className="flex gap-3 justify-center items-center">
-                    <span className="font-bold">Password:</span>user_owner
-                    <ButtonCopy text="user_owner" />
-                  </p>
+              </div>
+              {/* Owner */}
+              <div className="bg-zinc-950/40 p-3 rounded-xl border border-zinc-800/50">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-purple-400 mb-2 text-center">
+                  User Owner
+                </h4>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-500">User:</span>
+                    <div className="flex items-center gap-1 text-zinc-300">
+                      user_owner <ButtonCopy text="user_owner" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-500">Pass:</span>
+                    <div className="flex items-center gap-1 text-zinc-300">
+                      user_owner <ButtonCopy text="user_owner" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
