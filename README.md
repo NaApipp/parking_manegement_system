@@ -21,7 +21,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Hidden Link (For Register)
-parkinglogic.vercel.app/a7k9q2m5x1b8r4t6z3l
+[parkinglogic.vercel.app/a7k9q2m5x1b8r4t6z3l](http://parkinglogic.vercel.app/a7k9q2m5x1b8r4t6z3l)
 
 ## Commit Convention
 
