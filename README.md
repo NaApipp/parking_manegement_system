@@ -1,19 +1,12 @@
-```markdown
-# ParkingLogic
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Next.js](https://img.shields.io/badge/Next.js-Framework-black)
-![MySQL](https://img.shields.io/badge/MySQL-Database-blue)
-![Maintained](https://img.shields.io/badge/maintained-yes-success)
+# ParkingLogic
 
 ParkingLogic adalah sebuah **Web Application** yang dirancang untuk membantu pengelolaan sistem parkir secara terorganisir dan efisien. Aplikasi ini menyediakan sistem manajemen parkir yang terstruktur dengan dukungan **multi-role user**, sehingga setiap pengguna memiliki hak akses dan kemampuan yang berbeda sesuai dengan perannya.
 
 ParkingLogic dibangun menggunakan **Next.js** sebagai framework utama untuk pengembangan aplikasi web modern dan **MySQL** sebagai sistem manajemen basis data yang stabil dan scalable.
 
 ---
-
+```markdown
 # 1. Deskripsi & Fitur Utama
 
 ParkingLogic dikembangkan untuk mempermudah operasional parkir dengan sistem yang terintegrasi dan mudah digunakan oleh berbagai jenis pengguna dalam satu platform.
