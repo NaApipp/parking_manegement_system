@@ -10,7 +10,7 @@ export default function RegistrasiPage() {
     username: '',
     role: 'petugas',
     password: '',
-    status_aktif: 'TRUE',
+    status_aktif: '1',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -157,8 +157,8 @@ export default function RegistrasiPage() {
                 className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50 sm:text-sm"
                 required
               >
-                <option value="TRUE">Active</option>
-                <option value="FALSE">Inactive</option>
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
               </select>
             </div>
           </div>
