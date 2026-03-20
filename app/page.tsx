@@ -1,5 +1,11 @@
 import { redirect } from "next/navigation";
+import MaintenancePage from "./components/Maintenance";
 
 export default function Home() {
-    redirect("/login");
+    // redirect("/login");
+    return (
+        <>
+        <MaintenancePage />
+        </>
+    )
 }
