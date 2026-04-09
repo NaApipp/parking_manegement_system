@@ -43,7 +43,7 @@ export default function TabelArea() {
     }
     
     try {
-      const response = await fetch(`/api/admin/area-parkir/${id_area}`, {
+      const response = await fetch(`/api/v2/admin/area-parkir/${id_area}`, {
         method: "DELETE",
         headers: {
           "X-User-ID": actorId,
@@ -69,7 +69,7 @@ export default function TabelArea() {
   const fetchArea = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/area-parkir");
+      const response = await fetch("/api/v2/admin/area-parkir");
       if (!response.ok) throw new Error("Gagal mengambil data Area");
       const data = await response.json();
       setUsers(data);

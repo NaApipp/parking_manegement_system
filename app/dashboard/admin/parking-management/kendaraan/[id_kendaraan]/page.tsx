@@ -40,7 +40,7 @@ export default function EditKendaraanPage({
   const fetchDetail = async (id: string) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/admin/kendaraan/${id_kendaraan}`);
+      const response = await fetch(`/api/v2/admin/kendaraan/${id_kendaraan}`);
       const json = await response.json();
 
       if (json.success) {
@@ -94,7 +94,7 @@ export default function EditKendaraanPage({
         }
       }
 
-      const response = await fetch(`/api/admin/kendaraan/${id_kendaraan}`, {
+      const response = await fetch(`/api/v2/admin/kendaraan/${id_kendaraan}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

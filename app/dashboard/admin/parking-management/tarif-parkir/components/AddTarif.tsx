@@ -38,7 +38,7 @@ export default function AddTarifPage() {
     }
 
     try {
-      const response = await fetch("/api/admin/tarif-parkir", {
+      const response = await fetch("/api/v2/admin/tarif-parkir", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

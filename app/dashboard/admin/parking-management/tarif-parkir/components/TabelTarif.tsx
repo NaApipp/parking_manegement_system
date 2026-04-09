@@ -42,7 +42,7 @@ export default function TabelTarif() {
     }
     
     try {
-      const response = await fetch(`/api/admin/tarif-parkir/${id_tarif}`, {
+      const response = await fetch(`/api/v2/admin/tarif-parkir/${id_tarif}`, {
         method: "DELETE",
         headers: {
           "X-User-ID": actorId,
@@ -68,7 +68,7 @@ export default function TabelTarif() {
   const fetchTarif = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/tarif-parkir");
+      const response = await fetch("/api/v2/admin/tarif-parkir");
       if (!response.ok) throw new Error("Gagal mengambil data user");
       const data = await response.json();
       setUsers(data);

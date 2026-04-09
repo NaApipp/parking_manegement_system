@@ -45,7 +45,7 @@ export default function TabelKendaraan() {
     }
     
     try {
-      const response = await fetch(`/api/admin/kendaraan/${id_kendaraan}`, {
+      const response = await fetch(`/api/v2/admin/kendaraan/${id_kendaraan}`, {
         method: "DELETE",
         headers: {
           "X-User-ID": actorId,
@@ -71,7 +71,7 @@ export default function TabelKendaraan() {
   const fetchKendaraan = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/kendaraan");
+      const response = await fetch("/api/v2/admin/kendaraan");
       if (!response.ok) throw new Error("Gagal mengambil data kendaraan");
       const data = await response.json();
       setUsers(data);

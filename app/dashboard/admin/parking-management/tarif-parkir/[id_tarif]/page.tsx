@@ -35,7 +35,7 @@ export default function EditUserPage({
   const fetchDetail = async (id: string) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/admin/tarif-parkir/${id_tarif}`);
+      const response = await fetch(`/api/v2/admin/tarif-parkir/${id_tarif}`);
       const json = await response.json();
 
       if (json.success) {
@@ -86,7 +86,7 @@ export default function EditUserPage({
         }
       }
 
-      const response = await fetch(`/api/admin/tarif-parkir/${id_tarif}`, {
+      const response = await fetch(`/api/v2/admin/tarif-parkir/${id_tarif}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

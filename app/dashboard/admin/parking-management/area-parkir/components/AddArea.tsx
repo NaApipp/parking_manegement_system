@@ -39,7 +39,7 @@ export default function AddAreaPage() {
     }
 
     try {
-      const response = await fetch("/api/admin/area-parkir", {
+      const response = await fetch("/api/v2/admin/area-parkir", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

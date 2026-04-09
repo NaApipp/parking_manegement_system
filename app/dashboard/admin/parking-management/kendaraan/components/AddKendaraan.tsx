@@ -52,7 +52,7 @@ export default function AddKendaraanPage() {
     setMessage(null);
 
     try {
-      const response = await fetch("/api/admin/kendaraan", {
+      const response = await fetch("/api/v2/admin/kendaraan", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,7 +98,7 @@ export default function AddKendaraanPage() {
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/user");
+      const response = await fetch("/api/v2/admin/user");
       if (!response.ok) throw new Error("Gagal mengambil data user");
       const data = await response.json();
       setUsers(data);
