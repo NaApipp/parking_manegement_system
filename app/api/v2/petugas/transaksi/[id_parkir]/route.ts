@@ -13,7 +13,7 @@ export async function GET(
       .from("tb_transaksi")
       .select("id_parkir, id_kendaraan, waktu_masuk, waktu_keluar, id_tarif, durasi_jam, biaya_total, status, id_user, id_area")
       .eq("id_parkir", id_parkir)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(

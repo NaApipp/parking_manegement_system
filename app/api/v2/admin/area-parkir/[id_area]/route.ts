@@ -13,7 +13,7 @@ export async function GET(
       .from("tb_area_parkir")
       .select("id_area, nama_area, kapasitas, terisi")
       .eq("id_area", id_area)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(
@@ -48,7 +48,7 @@ export async function DELETE(
       .from("tb_area_parkir")
       .select("nama_area")
       .eq("id_area", id_area)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !area) {
       return NextResponse.json(

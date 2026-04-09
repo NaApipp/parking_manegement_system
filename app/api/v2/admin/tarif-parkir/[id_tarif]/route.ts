@@ -13,7 +13,7 @@ export async function GET(
       .from("tb_tarif")
       .select("id_tarif, jenis_kendaraan, tarif_per_jam")
       .eq("id_tarif", id_tarif)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(
@@ -48,7 +48,7 @@ export async function DELETE(
       .from("tb_tarif")
       .select("jenis_kendaraan")
       .eq("id_tarif", id_tarif)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !tariff) {
       return NextResponse.json(

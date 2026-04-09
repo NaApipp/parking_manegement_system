@@ -13,7 +13,7 @@ export async function GET(
       .from("tb_transaksi")
       .select("*")
       .eq("id_parkir", id_parkir)
-      .single();
+      .maybeSingle();
 
     if (error || !trx) {
       console.error("PDF Fetch Error:", error);

@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       .from("tb_user")
       .select("*")
       .eq("username", username)
-      .single();
+      .maybeSingle();
 
     if (error || !user) {
       console.log("Login Debug: User tidak ditemukan atau error untuk username:", username, error);

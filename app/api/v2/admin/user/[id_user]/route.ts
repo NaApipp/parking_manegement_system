@@ -14,7 +14,7 @@ export async function GET(
       .from("tb_user")
       .select("nama_lengkap, username, role, status_aktif")
       .eq("id_user", id_user)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(
@@ -57,7 +57,7 @@ export async function DELETE(
       .from("tb_user")
       .select("nama_lengkap")
       .eq("id_user", id_user)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !user) {
       return NextResponse.json(

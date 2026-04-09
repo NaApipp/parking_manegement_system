@@ -13,7 +13,7 @@ export async function GET(
       .from("tb_kendaraan")
       .select("id_kendaraan, plat_nomor, jenis_kendaraan, warna, pemilik")
       .eq("id_kendaraan", id_kendaraan)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(
@@ -48,7 +48,7 @@ export async function DELETE(
       .from("tb_kendaraan")
       .select("plat_nomor")
       .eq("id_kendaraan", id_kendaraan)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !vehicle) {
       return NextResponse.json(
