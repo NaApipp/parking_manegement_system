@@ -61,10 +61,10 @@ export default function AdminPage() {
     const fetchData = async () => {
       try {
         const [usersRes, areasRes, vehiclesRes, logsRes] = await Promise.all([
-          fetch("/api/admin/user"),
-          fetch("/api/admin/area-parkir"),
-          fetch("/api/admin/kendaraan"),
-          fetch("/api/admin/log-aktivitas")
+          fetch("/api/v2/admin/user"),
+          fetch("/api/v2/admin/area-parkir"),
+          fetch("/api/v2/admin/kendaraan"),
+          fetch("/api/v2/admin/log-aktivitas")
         ]);
 
         const [users, areas, vehicles, logs] = await Promise.all([
