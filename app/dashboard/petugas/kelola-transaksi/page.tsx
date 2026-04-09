@@ -35,7 +35,7 @@ export default function KelolaTransaksiPage() {
   const fetchTransactions = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/petugas/transaksi");
+      const response = await fetch("/api/v2/petugas/transaksi");
       if (!response.ok) throw new Error("Gagal mengambil data transaksi");
       const data = await response.json();
       setTransactions(data);

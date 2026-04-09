@@ -37,7 +37,7 @@ export default function EditUserPage({
   const fetchDetail = async (id: string) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/admin/user/${id}`);
+      const response = await fetch(`/api/v2/admin/user/${id}`);
       const json = await response.json();
 
       if (json.success) {
@@ -89,7 +89,7 @@ export default function EditUserPage({
         }
       }
 
-      const response = await fetch(`/api/admin/user/${id_user}`, {
+      const response = await fetch(`/api/v2/admin/user/${id_user}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

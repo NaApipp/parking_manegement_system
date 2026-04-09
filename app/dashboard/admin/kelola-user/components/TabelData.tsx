@@ -52,7 +52,7 @@ export default function TabelData() {
     }
 
     try {
-      const response = await fetch(`/api/admin/user/${id_user}`, {
+      const response = await fetch(`/api/v2/admin/user/${id_user}`, {
         method: "DELETE",
         headers: {
           "X-User-ID": actorId,
@@ -78,7 +78,7 @@ export default function TabelData() {
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/user");
+      const response = await fetch("/api/v2/admin/user");
       if (!response.ok) throw new Error("Gagal mengambil data user");
       const data = await response.json();
       setUsers(data);

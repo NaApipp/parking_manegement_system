@@ -67,9 +67,9 @@ export default function EditUserPage({
       setLoading(true);
 
       const [resK, resT, resA] = await Promise.all([
-        fetch("/api/petugas/kendaraan"),
-        fetch("/api/petugas/tarif"),
-        fetch("/api/petugas/area"),
+        fetch("/api/v2/petugas/kendaraan"),
+        fetch("/api/v2/petugas/tarif"),
+        fetch("/api/v2/petugas/area"),
       ]);
       const [dataK, dataT, dataA] = await Promise.all([
         resK.json(),
@@ -81,7 +81,7 @@ export default function EditUserPage({
       setTarif(dataT);
       setArea(dataA);
 
-      const response = await fetch(`/api/petugas/transaksi/${id_parkir}`);
+      const response = await fetch(`/api/v2/petugas/transaksi/${id_parkir}`);
       const json = await response.json();
 
       if (json.success) {
@@ -172,7 +172,7 @@ export default function EditUserPage({
       setIsSubmitting(true);
       setMessage(null);
 
-      const response = await fetch(`/api/petugas/transaksi/${id_parkir}`, {
+      const response = await fetch(`/api/v2/petugas/transaksi/${id_parkir}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -416,7 +416,7 @@ export default function EditUserPage({
             <button
               type="button"
               onClick={() => {
-                window.open(`/api/petugas/transaksi/${id_parkir}/pdf`);
+                window.open(`/api/v2/petugas/transaksi/${id_parkir}/pdf`);
               }}
               className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-green-700 active:scale-[0.98] disabled:opacity-50"
             >

@@ -36,7 +36,7 @@ export default function AddUserPage() {
     }
 
     try {
-      const response = await fetch('/api/admin/user', {
+      const response = await fetch('/api/v2/admin/user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

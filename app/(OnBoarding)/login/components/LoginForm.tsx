@@ -28,7 +28,8 @@ export default function LoginPage() {
     setMessage(null);
 
     try {
-      const response = await fetch("/api/on-boarding/login", {
+      // const response = await fetch("/api/on-boarding/login", {
+      const response = await fetch("/api/v2/on-boarding/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

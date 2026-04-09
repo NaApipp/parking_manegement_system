@@ -24,7 +24,8 @@ export default function RegistrasiPage() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/on-boarding/registrasi', {
+      // const response = await fetch('/api/on-boarding/registrasi', {
+      const response = await fetch('/api/v2/on-boarding/registrasi', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

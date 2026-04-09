@@ -56,9 +56,9 @@ export default function FormTransaksi() {
       try {
         setIsLoading(true);
         const [resK, resT, resA] = await Promise.all([
-          fetch("/api/petugas/kendaraan"),
-          fetch("/api/petugas/tarif"),
-          fetch("/api/petugas/area"),
+          fetch("/api/v2/petugas/kendaraan"),
+          fetch("/api/v2/petugas/tarif"),
+          fetch("/api/v2/petugas/area"),
         ]);
 
         const [dataK, dataT, dataA] = await Promise.all([
@@ -101,7 +101,7 @@ export default function FormTransaksi() {
     setMessage(null);
 
     try {
-      const res = await fetch("/api/petugas/transaksi", {
+      const res = await fetch("/api/v2/petugas/transaksi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ export default function FormTransaksi() {
         }));
 
         // Refresh area data to update capacity display
-        const resA = await fetch("/api/petugas/area");
+        const resA = await fetch("/api/v2/petugas/area");
         if (resA.ok) {
           const dataA = await resA.json();
           setArea(dataA);

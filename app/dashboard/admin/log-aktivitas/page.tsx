@@ -26,7 +26,7 @@ export default function TabelData() {
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/log-aktivitas");
+      const response = await fetch("/api/v2/admin/log-aktivitas");
       if (!response.ok) throw new Error("Gagal mengambil data log aktivitas");
       const data = await response.json();
       setUsers(data);
