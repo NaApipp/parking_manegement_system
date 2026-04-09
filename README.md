@@ -1,4 +1,3 @@
-
 # ParkingLogic
 
 ParkingLogic adalah sebuah **Web Application** yang dirancang untuk membantu pengelolaan sistem parkir secara terorganisir dan efisien. Aplikasi ini menyediakan sistem manajemen parkir yang terstruktur dengan dukungan **multi-role user**, sehingga setiap pengguna memiliki hak akses dan kemampuan yang berbeda sesuai dengan perannya.
@@ -6,6 +5,7 @@ ParkingLogic adalah sebuah **Web Application** yang dirancang untuk membantu pen
 ParkingLogic dibangun menggunakan **Next.js** sebagai framework utama untuk pengembangan aplikasi web modern dan **MySQL** sebagai sistem manajemen basis data yang stabil dan scalable.
 
 ---
+
 ```markdown
 # 1. Deskripsi & Fitur Utama
 
@@ -16,9 +16,11 @@ ParkingLogic dikembangkan untuk mempermudah operasional parkir dengan sistem yan
 Aplikasi menyediakan tiga role utama:
 
 ### 1. Admin
+
 Memiliki akses penuh terhadap sistem.
 
 Fitur:
+
 - Mengelola pengguna
 - Mengelola area parkir
 - Mengatur tarif parkir
@@ -26,19 +28,23 @@ Fitur:
 - Monitoring aktivitas sistem
 
 ### 2. Petugas Parkir
+
 Digunakan oleh operator parkir di lapangan.
 
 Fitur:
+
 - Mencatat kendaraan masuk
 - Mencatat kendaraan keluar
 - Menghitung biaya parkir otomatis
-- Melihat status slot 
+- Melihat status slot
 - Cetak Transaksi
 
-### 3. Supervisor / Manajer / Owner 
+### 3. Supervisor / Manajer / Owner
+
 Digunakan untuk monitoring operasional.
 
 Fitur:
+
 - Melihat laporan transaksi
 
 ## Manajemen Parkir
@@ -77,25 +83,25 @@ ParkingLogic menggunakan teknologi modern untuk memastikan performa dan maintain
 
 ## Frontend
 
-* Next.js
-* React.js
-* Tailwind CSS atau CSS Modules
+- Next.js
+- React.js
+- Tailwind CSS atau CSS Modules
 
 ## Backend
 
-* Next.js API Routes
-* Node.js
+- Next.js API Routes
+- Node.js
 
 ## Database
 
-* MySQL
+- MySQL
 
 ## Development Tools
 
-* npm
-* dotenv
-* ESLint
-* Prettier
+- npm
+- dotenv
+- ESLint
+- Prettier
 
 ---
 
@@ -115,43 +121,42 @@ Petugas parkir melakukan:
 
 1. Membuka menu kendaraan masuk
 2. Menginput data kendaraan:
+   - Nomor kendaraan
+   - Jenis kendaraan
+   - Area parkir
 
-   * Nomor kendaraan
-   * Jenis kendaraan
-   * Area parkir
 3. Sistem otomatis mencatat waktu masuk
 
 ## Kendaraan Keluar
 
 1. Petugas memilih kendaraan aktif
 2. Sistem menghitung:
+   - Durasi parkir
+   - Tarif parkir
 
-   * Durasi parkir
-   * Tarif parkir
 3. Petugas mengkonfirmasi transaksi
 
 ## Monitoring Parkir
 
 Admin dan supervisor dapat:
 
-* Melihat kendaraan aktif
-* Melihat slot parkir tersedia
-* Melihat laporan transaksi
-
+- Melihat kendaraan aktif
+- Melihat slot parkir tersedia
+- Melihat laporan transaksi
 
 # 9. Roadmap & Fitur Mendatang
 
 Beberapa fitur yang direncanakan untuk pengembangan selanjutnya:
 
-* Integrasi QR Code untuk tiket parkir
-* Integrasi barcode scanner kendaraan
-* Integrasi payment gateway
-* Dashboard analitik lebih lengkap
-* Notifikasi real-time
-* Multi-location parking management
-* Integrasi sensor parkir berbasis IoT
-* Mobile responsive improvement
-* Export laporan (PDF / Excel)
+- Integrasi QR Code untuk tiket parkir
+- Integrasi barcode scanner kendaraan
+- Integrasi payment gateway
+- Dashboard analitik lebih lengkap
+- Notifikasi real-time
+- Multi-location parking management
+- Integrasi sensor parkir berbasis IoT
+- Mobile responsive improvement
+- Export laporan (PDF / Excel)
 
 ---
 ```
@@ -160,8 +165,8 @@ Beberapa fitur yang direncanakan untuk pengembangan selanjutnya:
 
 ParkingLogic dibuat untuk memberikan solusi sistem parkir yang terorganisir, efisien, dan mudah dikembangkan untuk berbagai kebutuhan operasional parkir modern.
 
-
 ## Hidden Link (For Register)
+
 [parkinglogic.vercel.app/a7k9q2m5x1b8r4t6z3l](http://parkinglogic.vercel.app/a7k9q2m5x1b8r4t6z3l)
 
 ## Commit Convention
@@ -187,47 +192,52 @@ We follow a strict commit message format to ensure a clean and searchable git hi
 - `refactor: simplified the data fetching logic`
 
 ## User For Testing and Demo
+
 **Role Admin:**
+
 - Username: user_admin
 - Password: [user_admin]
 
 **Role Petugas:**
+
 - Username: user_petugas
 - Password: [user_petugas]
 
 **Role Owner:**
+
 - Username: user_owner
 - Password: [user_owner]
 
-
 ## API Endpoints Role Admin
 
-| Endpoint                             | Method              | Function                                                                      |
-| ------------------------------------ | ------------------- | ----------------------------------------------------------------------------- |
-| `/api/admin/area-parkir`             | POST & GET          | Add Area Parkir & Get Area Parkir                                             |
-| `/api/admin/area-parkir/[id_area]`   | GET, DELETE & PATCH | Get Area Parkir by ID, Delete Area Parkir by ID & Update Area Parkir by ID    |
-| `/api/admin/tarif-parkir`            | POST & GET          | Add Tarif Parkir & Get Tarif Parkir                                           |
-| `/api/admin/tarif-parkir/[id_tarif]` | GET, DELETE & PATCH | Get Tarif Parkir by ID, Delete Tarif Parkir by ID & Update Tarif Parkir by ID |
-| `/api/admin/user`                    | POST & GET          | Add User & Get User                                                           |
-| `/api/admin/user/[id_user]`          | GET, DELETE & PATCH | Get User by ID, Delete User by ID & Update User by ID                         |
+| Endpoint                                 | Method              | Function                                                                      |
+| ---------------------------------------- | ------------------- | ----------------------------------------------------------------------------- |
+| `/api/v2/admin/area-parkir`              | POST & GET          | Add Area Parkir & Get Area Parkir                                             |
+| `/api/v2/admin/area-parkir/[id_area]`    | GET, DELETE & PATCH | Get Area Parkir by ID, Delete Area Parkir by ID & Update Area Parkir by ID    |
+| `/api/v2/admin/kendaraan`                | POST & GET          | Add Kendaraan & Get Kendaraan                                                 |
+| `/api/v2/admin/kendaraan/[id_kendaraan]` | GET, DELETE & PATCH | Get Kendaraan by ID, Delete Kendaraan by ID & Update Kendaraan by ID          |
+| `/api/v2/admin/log-aktivitas`            | GET, DELETE & PATCH | Get Kendaraan by ID, Delete Kendaraan by ID & Update Kendaraan by ID          |
+| `/api/v2/admin/tarif-parkir`             | POST & GET          | Add Tarif Parkir & Get Tarif Parkir                                           |
+| `/api/v2/admin/tarif-parkir/[id_tarif]`  | GET, DELETE & PATCH | Get Tarif Parkir by ID, Delete Tarif Parkir by ID & Update Tarif Parkir by ID |
+| `/api/v2/admin/user`                     | POST & GET          | Add User & Get User                                                           |
+| `/api/v2/admin/user/[id_user]`           | GET, DELETE & PATCH | Get User by ID, Delete User by ID & Update User by ID                         |
 
 ## API Endpoints Role Petugas
 
-| Endpoint                                | Method      | Function                                      |
-| --------------------------------------- | ----------- | --------------------------------------------- |
-| `/api/petugas/area`                     | GET         | GET Overall data Area                         |
-| `/api/petugas/kendaraan`                | GET         | GET Overall data Kendaraan                    |
-| `/api/petugas/tarif`                    | GET         | GET Overall data Tarif                        |
-| `/api/petugas/transaksi`                | GET & POST  | GET Overall data Transaksi & Add Transaksi    |
-| `/api/petugas/transaksi/[id_parkir]`    | GET & PATCH | GET Detail Transaksi & Update Transaksi by ID |
-| `/api/petugas/transaksi/[id_parkir]/pdf`| GET         | GET Detail Transaksi for export to PDF |
+| Endpoint                                    | Method      | Function                                      |
+| ------------------------------------------- | ----------- | --------------------------------------------- |
+| `/api/v2/petugas/area`                      | GET         | GET Overall data Area                         |
+| `/api/v2/petugas/kendaraan`                 | GET         | GET Overall data Kendaraan                    |
+| `/api/v2/petugas/tarif`                     | GET         | GET Overall data Tarif                        |
+| `/api/v2/petugas/transaksi`                 | GET & POST  | GET Overall data Transaksi & Add Transaksi    |
+| `/api/v2/petugas/transaksi/[id_parkir]`     | GET & PATCH | GET Detail Transaksi & Update Transaksi by ID |
+| `/api/v2/petugas/transaksi/[id_parkir]/pdf` | GET         | GET Detail Transaksi for export to PDF        |
 
 ## API Endpoints On Boarding
 
-| Endpoint                      | Method | Function      |
-| ----------------------------- | ------ | ------------- |
-| `/api/on-boarding/login`      | POST   | Login user    |
-
+| Endpoint                    | Method | Function   |
+| --------------------------- | ------ | ---------- |
+| `/api/v2/on-boarding/login` | POST   | Login user |
 
 ## Folder Structure (Simple Explanation)
 
