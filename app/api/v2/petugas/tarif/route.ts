@@ -4,7 +4,7 @@ import { supabase } from "@/app/lib/supabase";
 export async function GET() {
   const { data, error } = await supabase
     .from("tb_tarif")
-    .select("id_tarif, jenis_kendaraan, tarif_masuk, tarif_per_jam");
+    .select("id_tarif, jenis_kendaraan, tarif_per_jam");
 
   if (error) {
     console.error("Fetch Tarif Error:", error);
