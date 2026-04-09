@@ -21,6 +21,12 @@ export async function POST(request: Request) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Konversi status_aktif ke smallint (1 atau 0) karena Postgres menolak string "TRUE"
+    let parsedStatusAktif = 0;
+    if (status_aktif === "TRUE" || status_aktif === true || status_aktif === 1 || String(status_aktif) === "1") {
+      parsedStatusAktif = 1;
+    }
+
     // 3. Simpan ke database menggunakan Supabase
     const { data, error } = await supabase
       .from("tb_user")
@@ -30,7 +36,7 @@ export async function POST(request: Request) {
           username, 
           password: hashedPassword, 
           role, 
-          status_aktif 
+          status_aktif: parsedStatusAktif 
         }
       ])
       .select("id_user")

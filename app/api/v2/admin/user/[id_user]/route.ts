@@ -132,12 +132,18 @@ export async function PATCH(request: Request) {
       `Mengupdate user [${nama_lengkap}] (ID: ${id_user}). Status Aktif: ${status_aktif}`
     );
 
+    // Konversi status_aktif ke smallint (1 atau 0)
+    let parsedStatusAktif = 0;
+    if (status_aktif === "TRUE" || status_aktif === true || status_aktif === 1 || String(status_aktif) === "1") {
+      parsedStatusAktif = 1;
+    }
+
     // 2. Prepare update data
     const updateData: any = {
       nama_lengkap,
       username,
       role,
-      status_aktif
+      status_aktif: parsedStatusAktif
     };
 
     // 3. Hash password jika disediakan
