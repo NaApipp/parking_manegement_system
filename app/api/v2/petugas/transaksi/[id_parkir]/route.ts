@@ -77,7 +77,7 @@ export async function PATCH(request: Request) {
     // simpan log aktivitas
     await logActivity(
       id_user,
-      `Telah Keluar dari sistem, pada pukul: ${waktu_keluar} Waktu Masuk: ${waktu_masuk} Waktu Keluar: ${waktu_keluar} menggunakan ID Tarif: ${id_tarif} Durasi Jam: ${durasi_jam} Biaya Total: ${biaya_total} Status: ${status} ID Petugas: ${id_user} ID Area: ${id_area}`
+      `Update keluar: ID Parkir ${id_parkir}, Kendaraan ${id_kendaraan}, Biaya ${biaya_total}`
     );
 
     // 2. Update ke database menggunakan Supabase

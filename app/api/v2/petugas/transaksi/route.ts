@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     }
 
     // simpan log aktivitas
-    await logActivity(id_user, `Telah Masuk ke sistem, pada pukul: ${waktu_masuk} menggunakan ID Tarif: ${id_tarif} Status: ${status} ID Petugas: ${id_user}`);
+    await logActivity(id_user, `Input parkir masuk: Kendaraan ID ${id_kendaraan}, Tarif ID ${id_tarif}`);
 
     return NextResponse.json(
       {
