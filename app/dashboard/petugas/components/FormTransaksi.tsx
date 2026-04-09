@@ -32,7 +32,7 @@ export default function FormTransaksi() {
     id_tarif: "",
     durasi_jam: "0",
     biaya_total: "0",
-    status: "Masuk",
+    status: "masuk",
     id_user: "",
     id_area: "",
   });
@@ -62,14 +62,14 @@ export default function FormTransaksi() {
         ]);
 
         const [dataK, dataT, dataA] = await Promise.all([
-          resK.json(),
-          resT.json(),
-          resA.json(),
+          resK.ok ? resK.json() : [],
+          resT.ok ? resT.json() : [],
+          resA.ok ? resA.json() : [],
         ]);
 
-        setKendaraan(dataK);
-        setTarif(dataT);
-        setArea(dataA);
+        setKendaraan(Array.isArray(dataK) ? dataK : []);
+        setTarif(Array.isArray(dataT) ? dataT : []);
+        setArea(Array.isArray(dataA) ? dataA : []);
       } catch (err) {
         console.error("Failed to fetch master data", err);
         setMessage({ type: "error", text: "Gagal mengambil data master" });
@@ -124,7 +124,7 @@ export default function FormTransaksi() {
         const resA = await fetch("/api/v2/petugas/area");
         if (resA.ok) {
           const dataA = await resA.json();
-          setArea(dataA);
+          setArea(Array.isArray(dataA) ? dataA : []);
         }
       } else {
         setMessage({
@@ -284,8 +284,8 @@ export default function FormTransaksi() {
                 required
               >
                 <option value="">Pilih Status</option>
-                <option value="Masuk">Masuk</option>
-                <option value="Keluar">Keluar</option>
+                <option value="masuk">Masuk</option>
+                <option value="keluar">Keluar</option>
               </select>
             </div>
           </div>

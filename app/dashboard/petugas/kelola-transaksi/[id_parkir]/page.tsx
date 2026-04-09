@@ -43,7 +43,7 @@ export default function EditUserPage({
     id_tarif: 0,
     durasi_jam: 0,
     biaya_total: 0,
-    status: "Keluar",
+    status: "keluar",
     id_user: 0,
   });
   const [kendaraan, setKendaraan] = useState<any[]>([]);
@@ -350,8 +350,8 @@ export default function EditUserPage({
                 required
               >
                 <option value="">Pilih Status</option>
-                <option value="Masuk">Masuk</option>
-                <option value="Keluar">Keluar</option>
+                <option value="masuk">Masuk</option>
+                <option value="keluar">Keluar</option>
               </select>
             </div>
           </div>
