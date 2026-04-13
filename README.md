@@ -6,7 +6,7 @@ ParkingLogic dibangun menggunakan **Next.js** sebagai framework utama untuk peng
 
 ---
 
-```markdown
+
 # 1. Deskripsi & Fitur Utama
 
 ParkingLogic dikembangkan untuk mempermudah operasional parkir dengan sistem yang terintegrasi dan mudah digunakan oleh berbagai jenis pengguna dalam satu platform.
@@ -77,7 +77,7 @@ ParkingLogic menerapkan sistem keamanan dasar seperti:
 
 ---
 
-# 3. Tech Stack
+# 2. Tech Stack
 
 ParkingLogic menggunakan teknologi modern untuk memastikan performa dan maintainability aplikasi.
 
@@ -94,7 +94,7 @@ ParkingLogic menggunakan teknologi modern untuk memastikan performa dan maintain
 
 ## Database
 
-- MySQL
+- PostgreSql
 
 ## Development Tools
 
@@ -105,7 +105,7 @@ ParkingLogic menggunakan teknologi modern untuk memastikan performa dan maintain
 
 ---
 
-# 6. Cara Penggunaan (Usage)
+# 3. Cara Penggunaan (Usage)
 
 Berikut alur penggunaan utama sistem.
 
@@ -159,11 +159,61 @@ Beberapa fitur yang direncanakan untuk pengembangan selanjutnya:
 - Export laporan (PDF / Excel)
 
 ---
-```
+# 4. 🚀 Instalasi
+
+### Prasyarat
+- Node.js 18+ 
+- npm atau yarn
+- Akun Supabase (untuk database)
+
+### Langkah-langkah
+
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/NaApipp/parking_manegement_system.git ParkingLogic
+   cd ParkingLogic
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Setup environment variables**
+   
+   Buat file `.env` di root folder:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
+   ```
+
+4. **Sinkronisasi database**
+   
+   Install CLI
+   ```bash
+   npm install -g supabase
+   ```
+   
+   Login & link project:
+   ```bash
+   supabase login
+   supabase link --project-ref <project-ref>
+   ```
+   
+   Push schema ke database:
+   ```bash
+   supabase db push
+   ```
+
+5. **Jalankan development server**
+   ```bash
+   npm run dev
+   ```
+
+6. Buka [http://localhost:3000](http://localhost:3000) di browser.
 
 ---
 
-ParkingLogic dibuat untuk memberikan solusi sistem parkir yang terorganisir, efisien, dan mudah dikembangkan untuk berbagai kebutuhan operasional parkir modern.
 
 ## Hidden Link (For Register)
 
